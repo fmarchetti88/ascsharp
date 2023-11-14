@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.7.34202.233
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AssoSw.Lesson1.HelloWorld", "AssoSw.Lesson1\AssoSw.Lesson1.HelloWorld.csproj", "{E909202F-A3B8-48AC-91E4-30A1C1FD5526}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AssoSw.Lesson1.BaseSyntax", "AssoSw.Lesson1.BaseSyntax\AssoSw.Lesson1.BaseSyntax.csproj", "{3576FC84-872C-41A3-A942-E178552F238B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E909202F-A3B8-48AC-91E4-30A1C1FD5526}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E909202F-A3B8-48AC-91E4-30A1C1FD5526}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E909202F-A3B8-48AC-91E4-30A1C1FD5526}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E909202F-A3B8-48AC-91E4-30A1C1FD5526}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3576FC84-872C-41A3-A942-E178552F238B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3576FC84-872C-41A3-A942-E178552F238B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3576FC84-872C-41A3-A942-E178552F238B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3576FC84-872C-41A3-A942-E178552F238B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {9B87B1AF-4DC0-458D-B615-D3F86C5CEB15}
+	EndGlobalSection
+EndGlobal
