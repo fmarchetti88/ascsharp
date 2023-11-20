@@ -35,7 +35,7 @@ namespace AssoSw.Lesson1.BaseSyntax
 
             double doubleVar = 1564.52;
             Console.WriteLine("Questo è il valore di una variabile di tipo double: " + doubleVar);
-            double doubleVarExp = 8.45e5; // E' pari a 8.45*10^5
+            double doubleVarExp = 8.45e5; // Notazione scientifica: è pari a 8.45*10^5
             Console.WriteLine("Questo è il valore di una variabile di tipo double con notazione scientifica: " + doubleVarExp);
             float floatVar = 120.5f;
             // float floatVar1 = 120.5; // Errore!
@@ -179,7 +179,6 @@ Diverso {5 != 6}");
 
         ///<summary>
         /// Il metodo esegue la somma di due numeri interi
-        /// (N.B.: approfittare per parlare anche dei METODI (o FUNZIONI))
         ///</summary>
         ///<param name="number1">Primo numero</param>
         ///<param name="number2">Secondo numero</param>
