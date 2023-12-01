@@ -4,7 +4,7 @@ namespace AssoSw.Lesson3.Generics
 {
     internal class PairWithConstraint<T1, T2>
         where T1 : struct
-        where T2 : class, ICanDisplay
+        where T2 : class, ICanDisplay//, new()
     {
         public T1 First { get; set; }
 
@@ -14,7 +14,7 @@ namespace AssoSw.Lesson3.Generics
         public PairWithConstraint(T1 first, T2 second)
         {
             First = first;
-            Second = second;
+            Second = second;// ?? new T2();
         }
 
         // Metodo per stampare la coppia di valori

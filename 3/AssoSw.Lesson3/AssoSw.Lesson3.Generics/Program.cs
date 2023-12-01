@@ -34,9 +34,9 @@ namespace AssoSw.Lesson3.Generics
                     sum += (int)element;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                Console.WriteLine("Errore nel calcolo della somma!");
+                Console.WriteLine($"Errore nel calcolo della somma! - {ex}");
             }
 
             /***** Con i generics *****/
@@ -55,7 +55,7 @@ namespace AssoSw.Lesson3.Generics
             // Creazione di una coppia di stringhe
             Pair<string, string> stringPair = new Pair<string, string>("Hello", "World");
 
-            // Creazione di una coppia di interi
+            // Creazione di una coppia di interi e double
             Pair<int, double> numericPair = new Pair<int, double>(42, 3.14);
 
             // Stampa delle coppie
@@ -67,6 +67,8 @@ namespace AssoSw.Lesson3.Generics
             Monitor monitor = new Monitor("Ciao sono un Monitor!");
             PairWithConstraint<double, Monitor> pairWithConstraint = new PairWithConstraint<double, Monitor>(256.897, monitor);
             pairWithConstraint.Show();
+            // PairWithConstraint<int, Smartphone> pairWithConstraint1 = new PairWithConstraint<int, Smartphone>(256, new Smartphone("Ciao sono uno Smartphone!"));
+            // PairWithConstraint<string, Monitor> pairWithConstraint2 = new PairWithConstraint<string, Monitor>("Ciao", monitor);
 
             /***** Utilizzo dei generics con un metodo *****/
             // Dichiarazione di due variabili di tipo int
@@ -136,6 +138,7 @@ namespace AssoSw.Lesson3.Generics
          * Restituisce il valore predefinito di un tipo qualunque, secondo le seguenti regole:
          * - per un reference type, T, default(T) restituisce null;
          * - per un tipo valore numerico, default(T) restituisce il valore zero;
+         * - per un tipo booleano, default(T) restituisce false;
          * - per un tipo valore struct, default(T) inizializza i membri con null o zero
          *   a seconda che essi siano rispettivamente di tipo riferimento o valore.
          */
