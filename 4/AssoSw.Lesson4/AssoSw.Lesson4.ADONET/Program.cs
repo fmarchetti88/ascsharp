@@ -1,4 +1,5 @@
 ﻿using System.Data.SqlClient;
+using System.Transactions;
 
 namespace AssoSw.Lesson4.ADONET
 {
@@ -13,21 +14,7 @@ namespace AssoSw.Lesson4.ADONET
                 connection.Open();
 
                 // 1. Inserimento di un Customer
-                string insertCustomerString = $@"
-INSERT INTO Customers (BusinessName, VatCode, Address, Telephone, Email)
-VALUES (@BusinessName, @VatCode, @Address, @Telephone, @Email)";
-                using (SqlCommand command = connection.CreateCommand())
-                {
-                    command.CommandText = insertCustomerString;
-                    command.Parameters.AddWithValue("@BusinessName", "AssoSoftware");
-                    command.Parameters.AddWithValue("@VatCode", "02654010400");
-                    command.Parameters.AddWithValue("@Address", "Piazza de Angeli, 3 20146 – Milano");
-                    command.Parameters.AddWithValue("@Telephone", "024699957");
-                    command.Parameters.AddWithValue("@Email", "info@assosoftware.it");
-
-                    int insertResult = command.ExecuteNonQuery();
-                    Console.WriteLine($"Sono state inserite {insertResult} righe");
-                }
+                InsertCustomer(connection, null);
 
                 // 2. Lettura di un Customer
                 string readCustomerString = "SELECT * FROM Customers";
@@ -71,6 +58,81 @@ VALUES (@BusinessName, @VatCode, @Address, @Telephone, @Email)";
                     int deleteResult = command.ExecuteNonQuery();
                     Console.WriteLine($"Sono state eliminate {deleteResult} righe");
                 }
+
+                // Sql Transaction
+                using (SqlTransaction transaction = connection.BeginTransaction())
+                {
+                    try
+                    {
+                        InsertCustomer(connection, transaction);
+                        InsertCustomerFail(connection, transaction);
+                        transaction.Commit();
+                        Console.WriteLine("La transazione si è conclusa con successo!");
+                    }
+                    catch (Exception)
+                    {
+                        transaction.Rollback();
+                        Console.WriteLine("Si è verificato un errore - Transazione annullata!");
+                    }
+                }
+            }
+
+            // TransactionScope
+            using (TransactionScope scope1 = new TransactionScope(TransactionScopeOption.Required, TimeSpan.FromSeconds(30)))
+            {
+                using (SqlConnection connection2 = new SqlConnection(connectionString))
+                {
+                    connection2.Open();
+                    try
+                    {
+                        InsertCustomer(connection2, null);
+                        InsertCustomerFail(connection2, null);
+                        scope1.Complete();
+                        Console.WriteLine("TransactionScope - La transazione si è conclusa con successo!");
+                    }
+                    catch (Exception)
+                    {
+                        Console.WriteLine("TransactionScope - Si è verificato un errore - Transazione annullata!");
+                    }
+                }
+            }
+        }
+
+        private static void InsertCustomer(SqlConnection connection, SqlTransaction transaction)
+        {
+            string insertCustomerString = $@"
+INSERT INTO Customers (BusinessName, VatCode, Address, Telephone, Email)
+VALUES (@BusinessName, @VatCode, @Address, @Telephone, @Email)";
+            using (SqlCommand command = new SqlCommand(insertCustomerString, connection, transaction))
+            {
+                command.CommandText = insertCustomerString;
+                command.Parameters.AddWithValue("@BusinessName", "AssoSoftware");
+                command.Parameters.AddWithValue("@VatCode", "02654010400");
+                command.Parameters.AddWithValue("@Address", "Piazza de Angeli, 3 20146 – Milano");
+                command.Parameters.AddWithValue("@Telephone", "024699957");
+                command.Parameters.AddWithValue("@Email", "info@assosoftware.it");
+
+                int insertResult = command.ExecuteNonQuery();
+                Console.WriteLine($"Sono state inserite {insertResult} righe");
+            }
+        }
+
+        private static void InsertCustomerFail(SqlConnection connection, SqlTransaction transaction)
+        {
+            string insertCustomerString = $@"
+INSERT INTO Customers (BusinessName, VatCode, Address, Telephone, Email, BirthDate)
+VALUES (@BusinessName, @VatCode, @Address, @Telephone, @Email)";
+            using (SqlCommand command = new SqlCommand(insertCustomerString, connection, transaction))
+            {
+                command.CommandText = insertCustomerString;
+                command.Parameters.AddWithValue("@BusinessName", "AssoSoftware");
+                command.Parameters.AddWithValue("@VatCode", "02654010400");
+                command.Parameters.AddWithValue("@Address", "Piazza de Angeli, 3 20146 – Milano");
+                command.Parameters.AddWithValue("@Telephone", "024699957");
+                command.Parameters.AddWithValue("@Email", "info@assosoftware.it");
+
+                int insertResult = command.ExecuteNonQuery();
+                Console.WriteLine($"Sono state inserite {insertResult} righe");
             }
         }
     }
