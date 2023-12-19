@@ -1,0 +1,29 @@
+﻿<Window x:Class="AssoSw.Lesson7.WpfConsumingAPI.CustomerListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:AssoSw.Lesson7.WpfConsumingAPI"
+        mc:Ignorable="d"
+        Title="CustomerListWindow" Height="450" Width="800"
+        x:Name="customerListWindow">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <ListView Name="UserGrid" Grid.Row="0" ItemsSource="{Binding Path=Customers, Mode=TwoWay}">
+            <ListView.View>
+                <GridView x:Name="grdTest">
+                    <GridViewColumn Header="Id" DisplayMemberBinding="{Binding Id}" Width="30"/>
+                    <GridViewColumn Header="Nome" DisplayMemberBinding="{Binding BusinessName}" Width="120"/>
+                    <GridViewColumn Header="Partita IVA" DisplayMemberBinding="{Binding VatCode}" Width="120"/>
+                    <GridViewColumn Header="Indirizzo" DisplayMemberBinding="{Binding Address}" Width="150"/>
+                    <GridViewColumn Header="Email" DisplayMemberBinding="{Binding Email}" Width="120"/>
+                    <GridViewColumn Header="Telefono" DisplayMemberBinding="{Binding Telephone}" Width="120"/>
+                </GridView>
+            </ListView.View>
+        </ListView>
+        <Button Grid.Row="1" Content="Chiudi" Command="{Binding Path=CloseCommand}" CommandParameter="{Binding ElementName=customerListWindow}"/>
+    </Grid>
+</Window>
